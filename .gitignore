@@ -1,4 +1,12 @@
 .vs/GraniteHouse/v15/Server/sqlite3/db.lock
+GraniteHouse/appsettings.json
+.vs/GraniteHouse/v15/.suo
+.vs/GraniteHouse/v15/Server/sqlite3/storage.ide-shm
+.vs/GraniteHouse/v15/Server/sqlite3/storage.ide-wal
+ GraniteHouse/bin/
+ GraniteHouse/obj/
+
+
 .suo
 .ide-shm
 .ide-wal
