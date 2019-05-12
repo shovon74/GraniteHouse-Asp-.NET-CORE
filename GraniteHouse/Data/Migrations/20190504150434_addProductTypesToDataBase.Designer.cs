@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GraniteHouse.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(HostingEnviroment))]
     [Migration("20190504150434_addProductTypesToDataBase")]
     partial class addProductTypesToDataBase
     {
