@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GraniteHouse.Data.Migrations
 {
-    [DbContext(typeof(HostingEnviroment))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190511071300_addProducts")]
     partial class addProducts
     {

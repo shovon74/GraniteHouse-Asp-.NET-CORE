@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GraniteHouse.Data.Migrations
 {
-    [DbContext(typeof(HostingEnviroment))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190509035921_addSpecialTagToDataBase")]
     partial class addSpecialTagToDataBase
     {
