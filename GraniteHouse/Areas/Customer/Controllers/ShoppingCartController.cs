@@ -42,5 +42,66 @@ namespace GraniteHouse.Areas.Customer.Controllers
             }
             return View(ShoppingCartVM);
         }
+        //Post: Shopping Cart
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Index")]
+        public IActionResult IndexPost()
+        {
+            List<int> lstCartItems = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            ShoppingCartVM.Appointments.AppointmentDate = ShoppingCartVM.Appointments.AppointmentDate
+                                                            .AddHours(ShoppingCartVM.Appointments.AppointmentTime.Hour)
+                                                            .AddMinutes(ShoppingCartVM.Appointments.AppointmentTime.Minute);
+            Appointments appointments = ShoppingCartVM.Appointments;
+            _db.Appointments.Add(appointments);
+            _db.SaveChanges();
+
+            int appointmentId = appointments.Id;
+
+            foreach(int productId in lstCartItems)
+            {
+                ProductsSelectedForAppointment productsSelectedForAppointment = new ProductsSelectedForAppointment()
+                {
+                    AppointmentId = appointmentId,
+                    ProductId = productId
+                };
+                _db.ProductsSelectedForAppointment.Add(productsSelectedForAppointment);
+            }
+            _db.SaveChanges();
+            lstCartItems = new List<int>();
+            HttpContext.Session.Set("ssShoppingCart", lstCartItems);
+
+            return RedirectToAction("AppointmentConfirmation", "ShoppingCart", new { Id = appointmentId });
+        }
+
+        //Remove action method
+        public IActionResult Remove(int id)
+        {
+            List<int> lstCartItems = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+
+            if (lstCartItems.Count>0)
+            {
+                if(lstCartItems.Contains(id))
+                {
+                    lstCartItems.Remove(id);
+                }
+            }
+
+            HttpContext.Session.Set("ssShoppingCart", lstCartItems);
+
+            return RedirectToAction(nameof(Index));
+        }
+        //Get: 
+        public IActionResult AppointmentConfirmation(int id)
+        {
+            ShoppingCartVM.Appointments = _db.Appointments.Where(a => a.Id == id).FirstOrDefault();
+            List<ProductsSelectedForAppointment> objProdList = _db.ProductsSelectedForAppointment.Where(p => p.AppointmentId == id).ToList();
+
+            foreach( ProductsSelectedForAppointment prodaptobj in objProdList)
+            {
+                ShoppingCartVM.Products.Add(_db.Products.Include(p => p.ProductTypes).Include(p => p.SpecialTags).Where(p => p.Id == prodaptobj.ProductId).FirstOrDefault());
+            }
+            return View(ShoppingCartVM);
+        }
     }
 }
