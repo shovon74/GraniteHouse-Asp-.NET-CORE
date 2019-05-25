@@ -79,7 +79,7 @@ namespace GraniteHouse.Areas.Admin.Controllers
             {
                 appointmentVM.Appointments = appointmentVM.Appointments.Where(a => a.CustomerPhoneNumber.ToLower().Contains(searchPhone.ToLower())).ToList();
             }
-           /* if (searchDate != null)
+            if (searchDate != null)
             {
                 try
                 {
@@ -91,7 +91,7 @@ namespace GraniteHouse.Areas.Admin.Controllers
 
                 }
 
-            }*/
+            }
 
             return View(appointmentVM);
         }
@@ -120,5 +120,102 @@ namespace GraniteHouse.Areas.Admin.Controllers
             return View(objAppointmentVM);
 
         }
+        //Post:Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, AppointmentDetailsViewModel objAppointmentVM)
+        {
+            if (ModelState.IsValid)
+            {
+                objAppointmentVM.Appointment.AppointmentDate = objAppointmentVM.Appointment.AppointmentDate
+                                    .AddHours(objAppointmentVM.Appointment.AppointmentTime.Hour)
+                                    .AddMinutes(objAppointmentVM.Appointment.AppointmentTime.Minute);
+
+                var appointmentFromDb = _db.Appointments.Where(a => a.Id == objAppointmentVM.Appointment.Id).FirstOrDefault();
+
+                appointmentFromDb.CustomerName = objAppointmentVM.Appointment.CustomerName;
+                appointmentFromDb.CustomerEmail = objAppointmentVM.Appointment.CustomerEmail;
+                appointmentFromDb.CustomerPhoneNumber = objAppointmentVM.Appointment.CustomerPhoneNumber;
+                appointmentFromDb.AppointmentDate = objAppointmentVM.Appointment.AppointmentDate;
+                appointmentFromDb.isConfirmed = objAppointmentVM.Appointment.isConfirmed;
+                if (User.IsInRole(SD.SuperAdminEndUser))
+                {
+                    appointmentFromDb.SalesPersonId = objAppointmentVM.Appointment.SalesPersonId;
+                }
+                _db.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
+
+
+            }
+
+            return View(objAppointmentVM);
+        }
+
+        //GET Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productList = (IEnumerable<Products>)(from p in _db.Products
+                                                      join a in _db.ProductsSelectedForAppointment
+                                                      on p.Id equals a.ProductId
+                                                      where a.AppointmentId == id
+                                                      select p).Include("ProductTypes");
+
+            AppointmentDetailsViewModel objAppointmentVM = new AppointmentDetailsViewModel()
+            {
+                Appointment = _db.Appointments.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
+                SalesPerson = _db.ApplicationUser.ToList(),
+                Products = productList.ToList()
+            };
+
+            return View(objAppointmentVM);
+
+        }
+
+        //GET Delete
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productList = (IEnumerable<Products>)(from p in _db.Products
+                                                      join a in _db.ProductsSelectedForAppointment
+                                                      on p.Id equals a.ProductId
+                                                      where a.AppointmentId == id
+                                                      select p).Include("ProductTypes");
+
+            AppointmentDetailsViewModel objAppointmentVM = new AppointmentDetailsViewModel()
+            {
+                Appointment = _db.Appointments.Include(a => a.SalesPerson).Where(a => a.Id == id).FirstOrDefault(),
+                SalesPerson = _db.ApplicationUser.ToList(),
+                Products = productList.ToList()
+            };
+
+            return View(objAppointmentVM);
+
+        }
+
+
+        //POST Delete
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed (int id)
+        {
+            var appointment = await _db.Appointments.FindAsync(id);
+            _db.Appointments.Remove(appointment);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
-}
+
+
+    }
+//}
