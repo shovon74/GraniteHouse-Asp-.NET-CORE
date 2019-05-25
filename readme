@@ -1,15 +1,15 @@
 ############How To Run The Project###########
 
 =>Change the server name on appsettings.json
-=>update the databse.
+=>updte the databse.
 
 ##########Super Admin Role#######
 
 Click on Login.
 
 =>bottom of the page there will be a link like "Register as a new user"(this security issue will solve later), 
-click here and get registered.
-Now you are an administrator or Super Admin,
+click here and must get registered as a super Admin. Then LogIn by providing the cerdentials.
+Now you are a Super Admin,
 
 =>And you need to add product Types, like
 1. Granite
