@@ -14,8 +14,8 @@ using Microsoft.Extensions.Logging;
 
 namespace GraniteHouse.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles = SD.SuperAdminEndUser)]
-    //[AllowAnonymous]
+    //[Authorize(Roles = SD.SuperAdminEndUser)]
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
