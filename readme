@@ -1,3 +1,11 @@
+################## What is GraniteHouse ##############
+GraniteHouse is an Appointment scheduling system. Appointment scheduling is a system that allow businesses to better manage the scheduling of appointments and bookings.
+Features Provided: Employee and customer management, Calendar integration, Mobile compatibility, online booking.
+
+############Tools need to install for run the project##############
+=> Visual Studio 2017
+=> Sql Server 2014
+
 ############How To Run The Project###########
 
 =>Change the server name on appsettings.json
