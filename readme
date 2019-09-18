@@ -1,58 +1,63 @@
-################## What is GraniteHouse ##############
+# What is GraniteHouse
 GraniteHouse is an Appointment scheduling system. Appointment scheduling is a system that allow businesses to better manage the scheduling of appointments and bookings.
-Features Provided: Employee and customer management, Calendar integration, Mobile compatibility, online booking.
 
-############Tools need to install for run the project##############
-=> Visual Studio 2017
-=> Sql Server 2014
+ # Features Provided 
+ 
+ * Employee and customer management.
+ * Calendar integration.
+ * Mobile compatibility.
+ * online booking.
 
-############How To Run The Project###########
+# Tools need to install for run the project
 
-=>Change the server name on appsettings.json
-=>updte the databse.
+* Visual Studio 2017
+* Sql Server 2014
 
-##########Super Admin Role#######
+# How To Run The Project
 
-Click on Login.
+Change the server name on appsettings.json
+* updte the databse.
 
-=>bottom of the page there will be a link like "Register as a new user"(this security issue will solve later), 
+# Super Admin Role
+
+* On bottom of the page there will be a link like "Register as a new user"(this security issue will solve later), 
 click here and must get registered as a super Admin. Then LogIn by providing the cerdentials.
 Now you are a Super Admin,
 
-=>And you need to add product Types, like
+* Add Product Types, like
 1. Granite
 2. Quartz
 
-=>Add Special Tags, like
+* Add Special Tags, like
 1. popular
 2. Best Seller
 3. For Kitchen
 
-=>Add products by providing necessary info (Please download some image for product image)
+* Add products by providing necessary info (Please download some image for product image)
 
-=>Add some salesperson or admin who will contact with the customer. For doing this
+* Add some salesperson or admin who will contact with the customer. For doing this
 Go to Admin tab and add admin or super admin.
 
 Logout From Administrator role
 
 
 
-########Customer Role########
+# Customer Role
 
-=>Go to homepage view details of products and add to cart.
-=>After adding product, go to cart tab and request for an appointment
+Go to homepage view details of products and add to cart.
+* After adding product, go to cart tab and request for an appointment
 
 
 
-##########Super Admin Role##########
+# Super Admin Role
 
 LogIn with previous credentials, and then click the Appointment Tab.
-=>You will find all the appointments requested by the customer.
+* You will find all the appointments requested by the customer.
 
-=>You (Super admin) need to assign appointments to different salesperson or admin, who will contact the customer for their
+* You (Super admin) need to assign appointments to different salesperson or admin, who will contact the customer for their
 requested appointment.
 
-=>A Super Admin can also edit or delete the salesperson or admin.
+* A Super Admin can also edit or delete the salesperson or admin.
 
 
 
